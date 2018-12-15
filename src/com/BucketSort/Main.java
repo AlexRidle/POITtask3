@@ -50,8 +50,8 @@ public class Main {
     private static int getCount() {
         String binValue = Integer.toBinaryString(getMaxOfArray(array));
         return binValue.length() % binaryShift != 0 ?
-                binValue.length() / binaryShift :
-                binValue.length() / binaryShift + 1;
+                binValue.length() / binaryShift + 1:
+                binValue.length() / binaryShift;
     }
 
     private static int getMaxOfArray(int[] array) {
