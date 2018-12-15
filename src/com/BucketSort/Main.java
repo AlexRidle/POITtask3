@@ -2,40 +2,53 @@ package com.BucketSort;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Main {
 
+    //settings
     private static int powOfTwo = 4;
+    private static int maxRandomValue = 10000;
+    private static int arraySize = 20;
+
+    //values for sort method
     private static int binaryShift = getBinaryShift();
     private static int sortCounter = 0;
-    private static int[] array = {1000, 1, 65, 758, 912, 850, 8210, 27, 239, 72, 7, 5, 223};
+
+    //array declaration
+    private static int[] array = new int[arraySize];
     private static ArrayList<ArrayList<Integer>> tempArray = new ArrayList<>();
 
     public static void main(String[] args) {
-
-        //initialize size of temp array
-        for (int i = 0; i < powOfTwo; i++) {
-            tempArray.add(new ArrayList<>());
-        }
-
-        //sort array for n times
+        initArrays();
         int counter = getCount();
-        System.out.println("Iteration: -" + " Array: " + Arrays.toString(array));
+        System.out.println("Array: " + Arrays.toString(array));
+
         for (int i = 0; i < counter; i++) {
             sortArray();
             System.out.println("Iteration: " + i + " Array: " + Arrays.toString(array));
         }
     }
 
+    private static void initArrays() {
+        Random random = new Random();
+
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(maxRandomValue);
+        }
+
+        for (int i = 0; i < powOfTwo; i++) {
+            tempArray.add(new ArrayList<>());
+        }
+    }
+
     private static int getBinaryShift() {
-        String binValue = Integer.toBinaryString(powOfTwo-1);
-        System.out.println("bin: " + binValue.length());
+        String binValue = Integer.toBinaryString(powOfTwo - 1);
         return binValue.length();
     }
 
     private static int getCount() {
         String binValue = Integer.toBinaryString(getMaxOfArray(array));
-        System.out.println(binValue);
         return binValue.length() % binaryShift != 0 ?
                 binValue.length() / binaryShift :
                 binValue.length() / binaryShift + 1;
@@ -48,7 +61,6 @@ public class Main {
                 value = num;
             }
         }
-        System.out.println(value);
         return value;
     }
 
@@ -60,9 +72,9 @@ public class Main {
 
         //add value by value in main array
         int arrayPos = 0;
-        for(ArrayList<Integer> arrayList : tempArray){
-            if(!arrayList.isEmpty()){
-                for (int value : arrayList){
+        for (ArrayList<Integer> arrayList : tempArray) {
+            if (!arrayList.isEmpty()) {
+                for (int value : arrayList) {
                     array[arrayPos] = value;
                     arrayPos++;
                 }
@@ -70,6 +82,6 @@ public class Main {
             }
         }
 
-        sortCounter+=binaryShift;
+        sortCounter += binaryShift;
     }
 }
