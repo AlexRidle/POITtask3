@@ -6,28 +6,37 @@ import java.util.Random;
 
 public class Main {
 
-    //settings
-    private static int powOfTwo = 4;
-    private static int maxRandomValue = 10000;
-    private static int arraySize = 20;
-
-    //values for sort method
-    private static int binaryShift = getBinaryShift();
-    private static int sortCounter = 0;
-
-    //array declaration
-    private static int[] array = new int[arraySize];
-    private static ArrayList<ArrayList<Integer>> tempArray = new ArrayList<>();
+    private static int powOfTwo;
+    private static int maxRandomValue;
+    private static int arraySize;
+    private static int binaryShift;
+    private static int sortCounter;
+    private static int[] array;
+    private static ArrayList<ArrayList<Integer>> tempArray;
 
     public static void main(String[] args) {
-        initArrays();
-        int counter = getCount();
-        System.out.println("Array: " + Arrays.toString(array));
+        start();
+    }
 
+    private static void start(){
+        setupSettings();
+        initArrays();
+
+        int counter = getCount();
         for (int i = 0; i < counter; i++) {
             sortArray();
             System.out.println("Iteration: " + i + " Array: " + Arrays.toString(array));
         }
+    }
+
+    private static void setupSettings(){
+        powOfTwo = 4;
+        maxRandomValue = 10000;
+        arraySize = 20;
+        binaryShift = getBinaryShift();
+        sortCounter = 0;
+        array = new int[arraySize];
+        tempArray = new ArrayList<>();
     }
 
     private static void initArrays() {
@@ -36,6 +45,8 @@ public class Main {
         for (int i = 0; i < array.length; i++) {
             array[i] = random.nextInt(maxRandomValue);
         }
+
+        System.out.println("Array: " + Arrays.toString(array));
 
         for (int i = 0; i < powOfTwo; i++) {
             tempArray.add(new ArrayList<>());
